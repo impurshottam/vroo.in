@@ -7,9 +7,9 @@ import {
     useHistory,
     withRouter
 } from "react-router-dom";
-import Home from './layouts/Home';
-import Login from './layouts/Login';
-import PageNotFound from './layouts/PageNotFound';
+import Home from './views/home/Home';
+import Login from './views/login/Login';
+import PageNotFound from './views/shared/PageNotFound';
 
 const App = () => (
     <Router>

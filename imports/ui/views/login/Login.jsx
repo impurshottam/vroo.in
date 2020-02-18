@@ -2,22 +2,18 @@ import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
-import Header from './Header';
-import Footer from './Footer';
 const styles = theme => ({root: {}});
-class Home extends Component {
+class Login extends Component {
     render() {
         const {classes} = this.props;
         return (
             <div>
-                <Header/>
-                <h1>Home</h1>
-                <Footer/>
+                Login
             </div>
         )
     }
 }
-Home.propTypes = {
+Login.propTypes = {
     classes: PropTypes.object.isRequired
 };
-export default compose(withStyles(styles))(Home);
+export default compose(withStyles(styles))(Login);
