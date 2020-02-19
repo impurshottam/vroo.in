@@ -2,12 +2,12 @@ import React, {Component, Fragment} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
-import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'aframe';
+import Header from '../shared/Header';
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -21,12 +21,8 @@ const styles = theme => ({
         justifyContent: 'center',
         zIndex: 1
     },
-    navbar: {
-        borderBottom: `1px solid ${theme.palette.divider}`
-    },
-    gap: {
-        flex: 1
-    },
+    
+    
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -48,14 +44,7 @@ class Home extends Component {
         const {classes} = this.props;
         return (
             <div className={classes.root}>
-                <Toolbar className={classes.navbar}>
-                    <img src="images/vroo-black.png" width="80px"/>
-                    <span className={classes.gap}></span>
-                    <Button variant="outlined" size="small">
-                        Sign In
-                    </Button>
-                </Toolbar>
-
+                <Header loginButton="show" />                
                 <a-scene vr-mode-ui="enabled: false">
                     <a-assets>
                         <img id="sky" src="images/360/sample1.jpg"/>

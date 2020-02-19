@@ -3,19 +3,20 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
-    useHistory,
-    withRouter
 } from "react-router-dom";
 import Home from './views/home/Home';
-import Login from './views/login/Login';
 import PageNotFound from './views/shared/PageNotFound';
+import SiginIn from './views/login/SiginIn';
+import Siginup from './views/login/Siginup';
+import ForgotPassword from './views/login/ForgotPassword';
 
 const App = () => (
     <Router>
         <Switch>
             <Route exact path="/" component={Home}/>
-            <Route path="/login" component={Login}/>
+            <Route path="/sign-in" component={SiginIn}/>
+            <Route path="/sign-up" component={Siginup}/>
+            <Route path="/forgot-password" component={ForgotPassword}/>
             <Route component={PageNotFound}/>
         </Switch>
     </Router>

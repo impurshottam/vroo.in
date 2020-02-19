@@ -2,12 +2,34 @@ import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
-const styles = theme => ({root: {}});
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
+
+const styles = theme => ({
+    navbar: {
+        borderBottom: `1px solid ${theme.palette.divider}`
+    },
+    gap: {
+        flex: 1
+    }
+});
 class Header extends Component {
     render() {
-        const {classes} = this.props;
+        const {classes, loginButton} = this.props;
         return (
-            <h1>Header</h1>
+            <Toolbar className={classes.navbar}>
+                <Link to="/">
+                    <img src="images/vroo-black.png" width="80px"/>
+                </Link>
+                <span className={classes.gap}></span>
+                {loginButton === 'show' && <Link to="/sign-in">
+                    <Button variant="outlined" size="small">
+                        Sign In
+                    </Button>
+                </Link>
+}
+            </Toolbar>
         );
     }
 }
