@@ -9,6 +9,7 @@ import PageNotFound from './views/shared/PageNotFound';
 import SiginIn from './views/login/SiginIn';
 import Siginup from './views/login/Siginup';
 import ForgotPassword from './views/login/ForgotPassword';
+import ToursLandingPage from './views/tour-creator/TourLandingPage';
 
 const App = () => (
     <Router>
@@ -16,6 +17,7 @@ const App = () => (
             <Route exact path="/" component={Home}/>
             <Route path="/sign-in" component={SiginIn}/>
             <Route path="/sign-up" component={Siginup}/>
+            <Route path="/tours" component={ToursLandingPage}/>
             <Route path="/forgot-password" component={ForgotPassword}/>
             <Route component={PageNotFound}/>
         </Switch>

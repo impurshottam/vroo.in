@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import {Link} from 'react-router-dom';
+
 import 'aframe';
 import Header from '../shared/Header';
 const styles = theme => ({
@@ -87,6 +89,7 @@ class Home extends Component {
                             >
                             Click. Upload. Publish.
                         </Typography> */}
+                        <Link to="/tours">
                         <Button
                             type="button"
                             variant="contained"
@@ -94,6 +97,7 @@ class Home extends Component {
                             className={classes.button}>
                             Get Started
                         </Button>
+                        </Link>
                     </div>
                 </Container>
             </div>

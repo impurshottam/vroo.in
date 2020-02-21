@@ -2,12 +2,25 @@ import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {compose} from 'redux';
+import { Typography } from '@material-ui/core';
 const styles = theme => ({root: {}});
 class Footer extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <h1>Footer</h1>
+            <div>
+                {/* <Typography variant="h6" align="center" gutterBottom>
+                    Footer
+                </Typography> */}
+                {/* <Typography
+                    variant="subtitle1"
+                    align="center"
+                    color="textSecondary"
+                    component="p">
+                    Something here to give the footer a purpose!
+                </Typography> */}
+
+            </div>
         );
     }
 }

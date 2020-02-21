@@ -11,6 +11,7 @@
     "@babel/runtime": "^7.7.6",
     "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.43",
     "aframe": "^1.0.4",
     "bcrypt": "^3.0.8",
     "jquery": "^3.4.1",
@@ -27,5 +28,8 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^2.4.0"
   }
 }

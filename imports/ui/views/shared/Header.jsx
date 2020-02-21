@@ -8,7 +8,8 @@ import {Link} from 'react-router-dom';
 
 const styles = theme => ({
     navbar: {
-        borderBottom: `1px solid ${theme.palette.divider}`
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        background:'white'
     },
     gap: {
         flex: 1
