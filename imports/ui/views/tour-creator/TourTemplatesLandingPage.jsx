@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { compose } from "redux";
@@ -7,13 +7,24 @@ import {
   Container,
   CssBaseline,
   Card,
-  CardActions
+  CardActions,
+  Chip,
+  Button
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Header from "../shared/Header";
 import { Link } from "react-router-dom";
 import { CardMediaSegment } from "./common/CardMediaSegment";
 import { CardTitle } from "./common/CardTitle";
+import { CardChips } from "./common/CardChips";
+import { TOUR_TYPES, TOUR_TYPES_TEXT } from "../../constants/TourTypes.js";
+import { TOUR_EXAMPLES } from "../../data/TourExamples";
+import { TourButtons } from "./common/TourButtons";
+import { IconButton } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+
 const styles = theme => ({
   main: {
     paddingTop: theme.spacing(8),
@@ -44,42 +55,12 @@ const styles = theme => ({
   },
   cardMediaSkeleton: {
     paddingTop: "56.25%"
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1)
   }
 });
-const cards = [
-  {
-    title: "Virutal tour",
-    path: "demotour-corfu/tour.xml",
-    cover:
-      "/krpano/examples/demotour-corfu/panos/achilleion-hof-unten.tiles/mobile_f.jpg"
-  },
-  {
-    title: "Interactive virtual tour",
-    path: "demotour-apartment/tour.xml",
-    cover:
-      "/krpano/examples/demotour-apartment/panos/IMG_1191-HDR_Panorama.tiles/pano_f.jpg"
-  },
-  {
-    title: "Interactive virtual tour with hotspot",
-    path: "demotour-winecellar/tour.xml",
-    cover: "/krpano/examples/demotour-winecellar/panos/mitte.tiles/pano_r.jpg"
-  }
-];
-
-//
-//
-// gravina-apartment-tour/main.xml
-// depthmap_helpertool_example.xml
-// googlemaps/googlemaps.xml
-// interactive-area/interactive-area.xml
-// demotour-corfu/tour.xml&skin_settings.littleplanetintro=true
-// paris/
-// tokyo45gp/
-// petersplatzkuppel.xml
-// vorne/kolosseum_vorne.xml
-// http://127.0.0.1:5500/viewer/krpano.html?xml=examples/snow/snow.xml
-// http://127.0.0.1:5500/viewer/krpano.html?xml=examples/videopano/videopano.xml
-
+const cards = TOUR_EXAMPLES;
 class TourTemplatesLandingPage extends Component {
   state = {
     loading: true
@@ -91,17 +72,50 @@ class TourTemplatesLandingPage extends Component {
       <div>
         <Header loginButton="hide" />
         <CssBaseline />
+        <main>
         <Container className={classes.main} component="main" maxWidth="lg">
-          <Grid xs={12} sm={12} md={4} item>
+            <TourButtons
+              content={
+                <Fragment>
+                                    {/* <Grid item> */}
+
+                  <Link to="/tours">
+                    <Fab
+                      size="small"
+                      className={classes.extendedIcon}
+
+                      variant="extended"
+                    >
+                      <ArrowBackIcon  />
+                      Back
+                    </Fab>
+                  </Link>
+                  {/* </Grid>
+                  <Grid item> */}
+
+                  <Link >
+
+                  <Fab
+                                        className={classes.extendedIcon}
+
+                    size="small"
+                    variant="extended"
+                  >
+                    <AddIcon  />
+                    Create New Tour
+                  </Fab>
+                  </Link>
+                  {/* </Grid> */}
+                </Fragment>
+              }
+            />
             <Typography
-              variant="caption"
+              variant="overline"
               align="left"
-              color="textSecondary"
-              paragraph
+              color="textPrimary"
             >
               Samples
             </Typography>
-          </Grid>
           <Grid container spacing={4}>
             {cards.map((card, index) => (
               <Grid xs={12} sm={12} md={4} item key={index}>
@@ -116,10 +130,15 @@ class TourTemplatesLandingPage extends Component {
                       }}
                     />
                     <CardActions disableSpacing className={classes.actions}>
-                      <CardTitle
-                        title={card.title}
+                      <CardChips
                         loading={loading}
-                        classes={classes}
+                        content={
+                          <Chip
+                            color="default"
+                            label={card.type}
+                            style={{ alignSelf: "flex-start" }}
+                          />
+                        }
                       />
                     </CardActions>
                     {loading ? null : <div className={classes.overlay} />}
@@ -129,6 +148,7 @@ class TourTemplatesLandingPage extends Component {
             ))}
           </Grid>
         </Container>
+        </main>
       </div>
     );
   }

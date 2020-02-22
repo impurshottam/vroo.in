@@ -20,7 +20,14 @@ import { CardTitle } from "./common/CardTitle";
 import { CardDate } from "./common/CardDate";
 import { CardButtons } from "./common/CardButtons";
 import { NoTours } from "./common/NoTours";
-import { CardStatus } from "./common/CardStatus";
+import { CardChips } from "./common/CardChips";
+import { TOURS_TEST_DATA } from "../../data/TourTestData";
+import { TOUR_STATUS } from "../../constants/TourStatus";
+import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+
+import { Chip, Button, Fab } from "@material-ui/core";
+import { Link } from "react-router-dom";
 const styles = theme => ({
   icon: {
     marginRight: theme.spacing(2)
@@ -105,10 +112,14 @@ const styles = theme => ({
   },
   cardMediaSkeleton: {
     paddingTop: "56.25%"
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1)
   }
 });
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // const cards = [];
+const cards = TOURS_TEST_DATA;
 class ToursLandingPage extends Component {
   state = {
     openDelete: false,
@@ -159,13 +170,51 @@ class ToursLandingPage extends Component {
         <CssBaseline />
         <main>
           <Container className={classes.cardGrid} maxWidth="lg">
-            <TourButtons />
+            <TourButtons
+              content={
+                <Fragment>
+                  <Link to="/">
+                    <Fab
+                      size="small"
+                      className={classes.extendedIcon}
+                      variant="extended"
+                    >
+                      <ArrowBackIcon  />
+                      Back
+                    </Fab>
+                  </Link>
+                  {/* <Grid item> */}
+                    <Link to="/tours">
+                      <Fab
+                        size="small"
+                        className={classes.extendedIcon}
+                        variant="extended"
+                      >
+                        <AddIcon />
+                        Create New Tour
+                      </Fab>
+                    </Link>
+                  {/* </Grid> */}
+                  {/* <Grid item> */}
+                    <Link to="/tours/templates">
+                      <Fab
+                        size="small"
+                        color="default"
+                        variant="extended"
+                      >
+                        Templates
+                      </Fab>
+                    </Link>
+                  {/* </Grid> */}
+                </Fragment>
+              }
+            />
             <ToursTitle cards={cards} />
             <Grid container spacing={4}>
               {cards.length ? (
                 <Fragment>
-                  {cards.map(card => (
-                    <Grid xs={12} sm={12} md={4} item key={card}>
+                  {cards.map((card, index) => (
+                    <Grid xs={12} sm={12} md={4} item key={index}>
                       <Card className={classes.root}>
                         <CardMediaSegment
                           loading={loading}
@@ -175,7 +224,30 @@ class ToursLandingPage extends Component {
                           }}
                         />
                         <CardActions disableSpacing className={classes.actions}>
-                          <CardStatus loading={loading} />
+                          <CardChips
+                            loading={loading}
+                            content={
+                              <Fragment>
+                                <Chip
+                                  color="default"
+                                  label={card.type}
+                                  style={{
+                                    alignSelf: "flex-start",
+                                    marginRight: "10px"
+                                  }}
+                                />
+                                <Chip
+                                  color="primary"
+                                  label={card.status}
+                                  style={{
+                                    alignSelf: "flex-start",
+                                    marginRight: "10px"
+                                  }}
+                                />
+                              </Fragment>
+                            }
+                          />
+
                           <CardTitle loading={loading} classes={classes} />
                           <CardDate loading={loading} />
                           <div className={classes.gap}></div>

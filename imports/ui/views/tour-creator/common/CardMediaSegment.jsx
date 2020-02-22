@@ -35,10 +35,6 @@ export function CardMediaSegment(props) {
                 "https://source.unsplash.com/random"})`
             }}
           ></div>
-          {/* <img
-              className={classes.cardMediaImage}
-              src="https://source.unsplash.com/random"
-            /> */}
         </Fragment>
       )}
     </CardMedia>

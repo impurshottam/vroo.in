@@ -4,3 +4,6 @@ html.a-fullscreen body .a-canvas{
 body{
     background-color: #e8eaed !important;
 }
+a{
+    text-decoration: none;
+}
