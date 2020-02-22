@@ -21,6 +21,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Chip } from "@material-ui/core";
 import DeleteTour from "./DeleteTour";
 import { Skeleton } from "@material-ui/lab";
+import ShareTour from "./ShareTour";
 const styles = theme => ({
   icon: {
     marginRight: theme.spacing(2)
@@ -83,16 +84,16 @@ const styles = theme => ({
     width: "100%",
     height: "100%",
     alignItems: "flex-end",
-    zIndex:'1'
+    zIndex: "1"
   },
-  overlay:{
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
+  overlay: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
     left: 0,
     bottom: 0,
     background:
-      "linear-gradient(to top, rgba(32, 33, 36, 1), rgba(32, 33, 36, 0) 100px);"    
+      "linear-gradient(to top, rgba(32, 33, 36, 1), rgba(32, 33, 36, 0) 100px);"
   },
   gap: {
     flex: 1
@@ -109,14 +110,11 @@ const styles = theme => ({
     height: "100%"
   },
   cardMediaSkeleton: {
-    paddingTop: '56.25%'
+    paddingTop: "56.25%"
   }
 });
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // const cards = [];
-function DeleteTourElement(props) {
-  return props.selectedValue ? <DeleteTour {...props} /> : null;
-}
 function TourButtons() {
   return (
     <Grid container spacing={2} justify="flex-start">
@@ -146,18 +144,25 @@ function CardMediaSegment(props) {
             variant="rect"
           />
           <img
-            style={{ display: "none", height:0 }}
+            style={{ display: "none", height: 0 }}
             onLoad={() => {
               setTimeout(() => {
                 onLoad();
-              },1000);
+              }, 1000);
             }}
             src="https://source.unsplash.com/random"
           />
         </Fragment>
       ) : (
         <Fragment>
-          <div style={{backgroundSize: 'cover',height:0,paddingTop: '56.25%', backgroundImage:'url(https://source.unsplash.com/random)'}}></div>
+          <div
+            style={{
+              backgroundSize: "cover",
+              height: 0,
+              paddingTop: "56.25%",
+              backgroundImage: "url(https://source.unsplash.com/random)"
+            }}
+          ></div>
           {/* <img
             className={classes.cardMediaImage}
             src="https://source.unsplash.com/random"
@@ -209,11 +214,17 @@ function CardDate(props) {
   );
 }
 function CardButtons(props) {
-  const { classes, loading,card,handleClickOpen } = props;
+  const {
+    classes,
+    loading,
+    card,
+    handleShareOpen,
+    handleDeleteOpen
+  } = props;
   return loading ? null : (
     <Fragment>
       <IconButton
-        onClick={event => handleClickOpen(card)}
+        onClick={event => handleDeleteOpen(card)}
         justify="flex-end"
         style={{ color: "white" }}
         aria-label="add to favorites"
@@ -227,7 +238,11 @@ function CardButtons(props) {
       >
         <FavoriteIcon />
       </IconButton>
-      <IconButton style={{ color: "white" }} aria-label="share">
+      <IconButton
+        onClick={event => handleShareOpen(card)}
+        style={{ color: "white" }}
+        aria-label="share"
+      >
         <ShareIcon />
       </IconButton>
     </Fragment>
@@ -292,31 +307,50 @@ function ToursTitle(props) {
 }
 class ToursLandingPage extends Component {
   state = {
-    open: false,
+    openDelete: false,
     selectedValue: null,
-    loading: true
+    loading: true,
+    openShare: false
   };
 
-  handleClickOpen = card => {
+  handleDeleteOpen = card => {
     this.setState({ selectedValue: card });
-    this.setState({ open: true });
+    this.setState({ openDelete: true });
   };
 
-  handleClose = value => {
-    this.setState({ open: false });
+  handleDeleteClose = value => {
     this.setState({ selectedValue: null });
+    this.setState({ openDelete: false });
+  };
+
+  handleShareClose = value => {
+    this.setState({ selectedValue: null });
+    this.setState({ openShare: false });
+  };
+  handleShareOpen = card => {
+    this.setState({ selectedValue: card });
+    this.setState({ openShare: true });
   };
 
   render() {
     const { classes } = this.props;
-    const { selectedValue, open, loading } = this.state;
+    const { selectedValue, loading, openShare, openDelete } = this.state;
     return (
       <div>
-        <DeleteTourElement
-          selectedValue={selectedValue}
-          open={open}
-          onClose={this.handleClose}
-        />
+        {openShare ? (
+          <ShareTour
+            selectedValue={selectedValue}
+            open={openShare}
+            onClose={this.handleShareClose}
+          />
+        ) : null}
+        {openDelete ? (
+          <DeleteTour
+            selectedValue={selectedValue}
+            open={openDelete}
+            onClose={this.handleDeleteClose}
+          />
+        ) : null}
         <Header loginButton="hide" />
         <CssBaseline />
         <main>
@@ -327,7 +361,7 @@ class ToursLandingPage extends Component {
               {cards.length ? (
                 <Fragment>
                   {cards.map(card => (
-                    <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Grid xs={12} sm={12} md={4}  item key={card}>
                       <Card className={classes.root}>
                         <CardMediaSegment
                           loading={loading}
@@ -341,9 +375,14 @@ class ToursLandingPage extends Component {
                           <CardTitle loading={loading} classes={classes} />
                           <CardDate loading={loading} />
                           <div className={classes.gap}></div>
-                          <CardButtons loading={loading} card={card} handleClickOpen={this.handleClickOpen} />
+                          <CardButtons
+                            loading={loading}
+                            card={card}
+                            handleDeleteOpen={this.handleDeleteOpen}
+                            handleShareOpen={this.handleShareOpen}
+                          />
                         </CardActions>
-                        {loading ?null:<div className={classes.overlay} />}
+                        {loading ? null : <div className={classes.overlay} />}
                       </Card>
                     </Grid>
                   ))}
