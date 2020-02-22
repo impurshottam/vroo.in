@@ -26,8 +26,6 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 
-
-
 const styles = theme => ({
     root2: {
         margin: 0,

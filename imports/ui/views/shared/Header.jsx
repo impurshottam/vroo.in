@@ -21,7 +21,7 @@ class Header extends Component {
         return (
             <Toolbar className={classes.navbar}>
                 <Link to="/">
-                    <img src="images/vroo-black.png" width="80px"/>
+                    <img src="/images/vroo-black.png" width="80px"/>
                 </Link>
                 <span className={classes.gap}></span>
                 {loginButton === 'show' && <Link to="/sign-in">
