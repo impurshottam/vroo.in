@@ -187,6 +187,7 @@ class ToursLandingPage extends Component {
                     <Link to="/tours">
                       <Fab
                         size="small"
+                        color="primary"
                         className={classes.extendedIcon}
                         variant="extended"
                       >
@@ -214,7 +215,7 @@ class ToursLandingPage extends Component {
               {cards.length ? (
                 <Fragment>
                   {cards.map((card, index) => (
-                    <Grid xs={12} sm={12} md={4} item key={index}>
+                    <Grid xs={12} sm={12} md={6} item key={index}>
                       <Card className={classes.root}>
                         <CardMediaSegment
                           loading={loading}

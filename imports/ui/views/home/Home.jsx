@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {Link} from 'react-router-dom';
+import { Chip, Fab } from "@material-ui/core";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 import 'aframe';
 import Header from '../shared/Header';
@@ -90,6 +92,17 @@ class Home extends Component {
                             Click. Upload. Publish.
                         </Typography> */}
                         <Link to="/tours">
+                    <Fab
+                      size="medium"
+                      color="primary"
+                      variant="extended"
+                      style={{marginTop:'10px'}}
+                    >
+                      Get Started
+                      <ArrowForwardIcon  />
+                    </Fab>
+                  </Link>
+                        {/* <Link to="/tours">
                         <Button
                             type="button"
                             variant="contained"
@@ -97,7 +110,7 @@ class Home extends Component {
                             className={classes.button}>
                             Get Started
                         </Button>
-                        </Link>
+                        </Link> */}
                     </div>
                 </Container>
             </div>

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
+import Fab from "@material-ui/core/Fab";
 const styles = theme => ({
   krpano: {
     width: "100%",
@@ -51,6 +52,17 @@ class Krpano extends Component {
     return (
       <Fragment>
         <Link to="/tours/templates">
+                    <Fab
+                      size="small"
+                      style={{ position:'absolute',top:'10px',zIndex:1 }}
+                      className={classes.extendedIcon}
+                      variant="extended"
+                    >
+                      <ArrowBackIcon />
+                      Back
+                    </Fab>
+                  </Link>
+        {/* <Link to="/tours/templates">
         <IconButton
           justify="flex-end"
           style={{ color: "white", position:'absolute',top:'10px',zIndex:1 }}
@@ -58,7 +70,7 @@ class Krpano extends Component {
         >
           <ArrowBackIcon />
         </IconButton>
-        </Link>
+        </Link> */}
         <div id="pano" className={classes.krpano}></div>;
       </Fragment>
     );

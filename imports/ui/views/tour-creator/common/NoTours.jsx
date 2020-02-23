@@ -23,11 +23,11 @@ export function NoTours(props) {
             src="/images/basement.png"
           />
         </div>
-        <Typography variant="h6" align="center" color="textPrimary" gutterBottom>
+        <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
           Welcome to VROO.
         </Typography>
         <Typography
-          variant="caption"
+          variant="subtitle1"
           align="center"
           color="textSecondary"
           paragraph

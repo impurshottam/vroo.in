@@ -73,81 +73,77 @@ class TourTemplatesLandingPage extends Component {
         <Header loginButton="hide" />
         <CssBaseline />
         <main>
-        <Container className={classes.main} component="main" maxWidth="lg">
+          <Container className={classes.main} component="main" maxWidth="lg">
             <TourButtons
               content={
                 <Fragment>
-                                    {/* <Grid item> */}
+                  {/* <Grid item> */}
 
                   <Link to="/tours">
                     <Fab
                       size="small"
-                      className={classes.extendedIcon}
 
+                      className={classes.extendedIcon}
                       variant="extended"
                     >
-                      <ArrowBackIcon  />
+                      <ArrowBackIcon />
                       Back
                     </Fab>
                   </Link>
                   {/* </Grid>
                   <Grid item> */}
 
-                  <Link >
+                  <Link>
+                    <Fab
+                      className={classes.extendedIcon}
+                      size="small"
+                      color="primary"
 
-                  <Fab
-                                        className={classes.extendedIcon}
-
-                    size="small"
-                    variant="extended"
-                  >
-                    <AddIcon  />
-                    Create New Tour
-                  </Fab>
+                      variant="extended"
+                    >
+                      <AddIcon />
+                      Create New Tour
+                    </Fab>
                   </Link>
                   {/* </Grid> */}
                 </Fragment>
               }
             />
-            <Typography
-              variant="overline"
-              align="left"
-              color="textPrimary"
-            >
+            <Typography variant="h2" align="left" color="textPrimary">
               Samples
             </Typography>
-          <Grid container spacing={4}>
-            {cards.map((card, index) => (
-              <Grid xs={12} sm={12} md={4} item key={index}>
-                <Link to={`/tours/templates/${card.path}`}>
-                  <Card className={classes.root}>
-                    <CardMediaSegment
-                      image={card.cover}
-                      loading={loading}
-                      classes={classes}
-                      onLoad={() => {
-                        this.setState({ loading: false });
-                      }}
-                    />
-                    <CardActions disableSpacing className={classes.actions}>
-                      <CardChips
+            <Grid container spacing={4}>
+              {cards.map((card, index) => (
+                <Grid xs={12} sm={12} md={6} item key={index}>
+                  <Link to={`/tours/templates/${card.path}`}>
+                    <Card className={classes.root}>
+                      <CardMediaSegment
+                        image={card.cover}
                         loading={loading}
-                        content={
-                          <Chip
-                            color="default"
-                            label={card.type}
-                            style={{ alignSelf: "flex-start" }}
-                          />
-                        }
+                        classes={classes}
+                        onLoad={() => {
+                          this.setState({ loading: false });
+                        }}
                       />
-                    </CardActions>
-                    {loading ? null : <div className={classes.overlay} />}
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+                      <CardActions disableSpacing className={classes.actions}>
+                        <CardChips
+                          loading={loading}
+                          content={
+                            <Chip
+                              color="default"
+                              label={card.type}
+                              style={{ alignSelf: "flex-start" }}
+                            />
+                          }
+                        />
+                      </CardActions>
+                      {loading ? null : <div className={classes.overlay} />}
+                    </Card>
+                  </Link>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
         </main>
       </div>
     );
