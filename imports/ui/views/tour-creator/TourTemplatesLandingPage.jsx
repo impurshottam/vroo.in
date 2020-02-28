@@ -93,7 +93,7 @@ class TourTemplatesLandingPage extends Component {
                   {/* </Grid>
                   <Grid item> */}
 
-                  <Link>
+                  <Link to="/tours/create">
                     <Fab
                       className={classes.extendedIcon}
                       size="small"

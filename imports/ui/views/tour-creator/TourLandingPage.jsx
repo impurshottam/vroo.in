@@ -26,7 +26,7 @@ import { TOUR_STATUS } from "../../constants/TourStatus";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-import { Chip, Button, Fab } from "@material-ui/core";
+import { Chip, Button, Fab, GridList } from "@material-ui/core";
 import { Link } from "react-router-dom";
 const styles = theme => ({
   icon: {
@@ -115,7 +115,32 @@ const styles = theme => ({
   },
   extendedIcon: {
     marginRight: theme.spacing(1)
-  }
+  },
+  chipsWrapper:{
+    position:'absolute',
+    left:theme.spacing(1),
+    top:0
+  },
+  chip:{
+    alignSelf: "flex-start",
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(1)
+  },
+  button:{
+    margin: theme.spacing(3, 0, 2)
+
+  },
+  gridList: {
+    width: '100%',
+    height: 'auto',
+  },
+  gridRoot: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    // backgroundColor: theme.palette.background.paper,
+  },
 });
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // const cards = [];
@@ -174,47 +199,66 @@ class ToursLandingPage extends Component {
               content={
                 <Fragment>
                   <Link to="/">
-                    <Fab
+                    {/* <Fab
                       size="small"
                       className={classes.extendedIcon}
                       variant="extended"
                     >
-                      <ArrowBackIcon  />
+                      
                       Back
-                    </Fab>
+                    </Fab> */}
+                    <Button
+                className={classes.button}
+              >
+              
+                <ArrowBackIcon  />
+                Back
+              </Button>
                   </Link>
                   {/* <Grid item> */}
-                    <Link to="/tours">
-                      <Fab
+                    <Link to="/tours/create">
+                      {/* <Fab
                         size="small"
                         color="primary"
                         className={classes.extendedIcon}
                         variant="extended"
                       >
                         <AddIcon />
-                        Create New Tour
-                      </Fab>
+                        New Tour
+                      </Fab> */}
+                        <Button
+                className={classes.button}
+              >
+              
+                <AddIcon  />
+                New Tour
+              </Button>
                     </Link>
                   {/* </Grid> */}
                   {/* <Grid item> */}
                     <Link to="/tours/templates">
-                      <Fab
+                      {/* <Fab
                         size="small"
                         color="default"
                         variant="extended"
                       >
                         Templates
-                      </Fab>
+                      </Fab> */}
+                       <Button
+                className={classes.button}
+              >
+                Templates
+              </Button>
                     </Link>
                   {/* </Grid> */}
                 </Fragment>
               }
             />
             <ToursTitle cards={cards} />
-            <Grid container spacing={4}>
+
+            <Grid height="500px" container spacing={4}>
               {cards.length ? (
-                <Fragment>
-                  {cards.map((card, index) => (
+                  cards.map((card, index) => (
                     <Grid xs={12} sm={12} md={6} item key={index}>
                       <Card className={classes.root}>
                         <CardMediaSegment
@@ -228,24 +272,18 @@ class ToursLandingPage extends Component {
                           <CardChips
                             loading={loading}
                             content={
-                              <Fragment>
+                              <div className={classes.chipsWrapper}>
                                 <Chip
+                                className={classes.chip}
                                   color="default"
                                   label={card.type}
-                                  style={{
-                                    alignSelf: "flex-start",
-                                    marginRight: "10px"
-                                  }}
                                 />
                                 <Chip
+                                className={classes.chip}
                                   color="primary"
                                   label={card.status}
-                                  style={{
-                                    alignSelf: "flex-start",
-                                    marginRight: "10px"
-                                  }}
                                 />
-                              </Fragment>
+                              </div>
                             }
                           />
 
@@ -262,11 +300,11 @@ class ToursLandingPage extends Component {
                         {loading ? null : <div className={classes.overlay} />}
                       </Card>
                     </Grid>
-                  ))}
-                </Fragment>
+                  ))
               ) : (
                 <NoTours classes={classes} />
               )}
+
             </Grid>
           </Container>
         </main>
