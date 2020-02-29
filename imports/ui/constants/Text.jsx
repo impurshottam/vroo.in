@@ -19,5 +19,11 @@ export const TEXT = {
   TOUR_LINK:'Tour Link',
   SHARE:'Share',
   WELCOME_TITTLE : 'Welcome to VROO.',
-  WELCOME_DESC : `India's First 360 Virtual Reality Tour Online Publishing Platform.`
+  WELCOME_DESC : `India's First 360 Virtual Reality Tour Online Publishing Platform.`,
+  FIRST_NAME:'First Name',
+  LAST_NAME:'Last Name',
+  EMAIL:'Email',
+  PASSWORD:'Password',
+  REMEMBER_ME_DESC:'I want to receive inspiration, marketing promotions and updates via email.'
+
 };

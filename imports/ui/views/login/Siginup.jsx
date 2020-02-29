@@ -25,9 +25,9 @@ class SignUp extends Component {
   render() {
     const { classes } = this.props;
     return (
-        <div className={classes.root}>
-        <Header theme={THEME.BLACK}  />
-        <Container className={classes.content} component="main" maxWidth="sm">            
+      <div className={classes.root}>
+        <Header theme={THEME.BLACK} />
+        <Container className={classes.content} component="main" maxWidth="sm">
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -45,8 +45,7 @@ class SignUp extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
-                    label="First Name"
+                    label={TEXT.FIRST_NAME}
                     autoFocus
                   />
                 </Grid>
@@ -55,8 +54,7 @@ class SignUp extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
-                    label="Last Name"
+                    label={TEXT.LAST_NAME}
                     name="lastName"
                     autoComplete="lname"
                   />
@@ -66,8 +64,7 @@ class SignUp extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    id="email"
-                    label="Email Address"
+                    label={TEXT.EMAIL}
                     name="email"
                     autoComplete="email"
                   />
@@ -78,10 +75,8 @@ class SignUp extends Component {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label={TEXT.PASSWORD}
                     type="password"
-                    type="password"
-                    id="password"
                     autoComplete="current-password"
                   />
                 </Grid>
@@ -90,7 +85,7 @@ class SignUp extends Component {
                     control={
                       <Checkbox value="allowExtraEmails" color="primary" />
                     }
-                    label="I want to receive inspiration, marketing promotions and updates via email."
+                    label={TEXT.REMEMBER_ME_DESC}
                   />
                 </Grid>
               </Grid>
@@ -101,8 +96,7 @@ class SignUp extends Component {
                 color="primary"
                 className={classes.button}
               >
-                              {TEXT.SIGN_UP_BTN}
-
+                {TEXT.SIGN_UP_BTN}
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
@@ -113,9 +107,6 @@ class SignUp extends Component {
               </Grid>
             </form>
           </div>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
         </Container>
       </div>
     );
