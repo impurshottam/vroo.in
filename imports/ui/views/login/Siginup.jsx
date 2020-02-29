@@ -20,12 +20,13 @@ import styles from "../../styles/styles";
 import { TEXT } from "../../constants/Text";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/Routes";
+import { THEME } from "../../constants/themes";
 class SignUp extends Component {
   render() {
     const { classes } = this.props;
     return (
         <div className={classes.root}>
-        <Header />
+        <Header theme={THEME.BLACK}  />
         <Container className={classes.content} component="main" maxWidth="sm">            
           <CssBaseline />
           <div className={classes.paper}>

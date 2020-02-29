@@ -18,12 +18,14 @@ import { TEXT } from "../../constants/Text";
 import { ROUTES } from "../../constants/Routes";
 import Footer from "../shared/Footer";
 import { Link } from "react-router-dom";
+import { IMAGES } from "../../constants/Images";
+import { THEME } from "../../constants/themes";
 class SignIn extends Component {
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
+        <Header theme={THEME.BLACK}  />
         <Container className={classes.content} component="main" maxWidth="sm">            
           <CssBaseline />
           <div className={classes.paper}>
@@ -61,7 +63,7 @@ class SignIn extends Component {
                 label={TEXT.REMEMBER_ME_LABEL}
               />
               <Button
-                type="submit"
+                type="button"
                 fullWidth
                 variant="contained"
                 color="primary"

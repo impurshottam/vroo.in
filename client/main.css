@@ -1,14 +1,3 @@
-html.a-fullscreen body .a-canvas{
-    top:56px !important
-}    
-@media (min-width: 600px){
-    html.a-fullscreen body .a-canvas{
-        top:64px !important
-    }    
-}
-body{
-    background-color: #e8eaed !important;
-}
 a{
     text-decoration: none;
 }

@@ -42,7 +42,7 @@ class ForgotPassword extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Header loginButton="hide"/>
+                {/* <Header loginButton="hide"/> */}
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <div className={classes.paper}>
