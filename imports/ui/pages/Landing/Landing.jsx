@@ -26,6 +26,7 @@ import { THEME } from "../../constants/themes";
 
 // import components
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 function Ascene() {
   return (
@@ -82,6 +83,7 @@ class Landing extends Component {
             </Link>
           </div>
         </Container>
+        <Footer theme={THEME.WHITE} />
       </div>
     );
   }

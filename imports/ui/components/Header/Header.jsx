@@ -12,8 +12,9 @@ import { IMAGES } from "../../constants/Images";
 import { THEME } from "../../constants/themes";
 import { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { Avatar } from "@material-ui/core";
 
-class Header extends Component {  
+class Header extends Component {
   render() {
     const { classes, loggedIn, theme } = this.props;
     let logo = IMAGES.WHITE_LARGE_LOGO;
@@ -29,9 +30,12 @@ class Header extends Component {
         </Link>
         <span className={classes.gap}></span>
         {loggedIn ? (
-          <Link to={ROUTES.LANDING} onClick={() => Meteor.logout()}>
-            <Button className={fontColor}>{TEXT.LOGOUT_BTN}</Button>
-          </Link>
+          <Fragment>
+            <Link to={ROUTES.LANDING} onClick={() => Meteor.logout()}>
+              <Button className={fontColor}>{TEXT.LOGOUT_BTN}</Button>
+            </Link>
+            <Avatar>PS</Avatar>
+          </Fragment>
         ) : (
           <Fragment>
             <Link to={ROUTES.SIGN_UP}>

@@ -6,9 +6,9 @@ import { Typography, Link } from '@material-ui/core';
 const styles = theme => ({root: {}});
 class Copyright extends Component {
     render() {
-        const {classes} = this.props;
+        const {classes,fontColor} = this.props;
         return (
-            <Typography variant="body2" color="textSecondary" align="center">
+            <Typography variant="body2" className={fontColor} align="center">
                 {'Copyright © '}
                 <Link color="inherit" href="https://vroo.in/">
                     vroo.in
@@ -19,6 +19,6 @@ class Copyright extends Component {
     }
 }
 Copyright.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
 };
 export default compose(withStyles(styles))(Copyright);

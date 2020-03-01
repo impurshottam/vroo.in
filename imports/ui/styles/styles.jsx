@@ -13,7 +13,7 @@ export default theme => ({
     marginTop: "64px"
   },
   content: {
-    height: "calc(100vh - 64px)",
+    height: "calc(100vh - 124px)",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
