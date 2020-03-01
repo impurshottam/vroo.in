@@ -24,6 +24,11 @@ export const TEXT = {
   LAST_NAME:'Last Name',
   EMAIL:'Email',
   PASSWORD:'Password',
-  REMEMBER_ME_DESC:'I want to receive inspiration, marketing promotions and updates via email.'
-
+  REMEMBER_ME_DESC:'I want to receive inspiration, marketing promotions and updates via email.',
+  NOT_FOUND : 'Opps! Page does not found.',
+  ERROR_404 : '404 Error',
+  LOGOUT_BTN : 'Logout',
+  TERMS_AND_CONDITION_LABEL :'I have carefully reviewed and understood updated Terms and Conditions and Privacy Policy',
+  MIN_PASSWORD_LENGTH_ERROR_MSG : 'Password can not be less that 8 characters.',
+  EMAIL_ERROR_MESSAGE : "Invalid email address"
 };
