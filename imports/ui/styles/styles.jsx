@@ -1,6 +1,23 @@
 import { red } from "@material-ui/core/colors";
 
 export default theme => ({
+  
+ 
+  headerDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  headerMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+
+
+
   root: {
     display: "flex",
     flexDirection: "column",

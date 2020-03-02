@@ -30,5 +30,7 @@ export const TEXT = {
   LOGOUT_BTN : 'Logout',
   TERMS_AND_CONDITION_LABEL :'I have carefully reviewed and understood updated Terms and Conditions and Privacy Policy',
   MIN_PASSWORD_LENGTH_ERROR_MSG : 'Password can not be less that 8 characters.',
-  EMAIL_ERROR_MESSAGE : "Invalid email address"
+  EMAIL_ERROR_MESSAGE : "Invalid email address",
+  PROFILE : 'Profile',
+  MY_ACCOUNRT : 'My account'
 };
