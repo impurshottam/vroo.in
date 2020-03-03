@@ -5,6 +5,10 @@ import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
+import { Accounts } from "meteor/accounts-base";
+import {
+  withTracker
+} from 'meteor/react-meteor-data';
 
 // import components
 import Header from "../../components/Header/Header";
@@ -36,66 +40,77 @@ import { THEME } from "../../constants/themes";
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [
-    "Email",
-    "Password",
-  ];
+  const requiredFields = ["OldPassword", "NewPassword", "ConfirmPassword"];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = `${field} is required.`;
     }
   });
-  if (
-    values.Email &&
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)
-  ) {
-    errors.Email = TEXT.EMAIL_ERROR_MESSAGE;
-  }
   if (values.Password && values.Password.length < 8) {
     errors.Password = TEXT.MIN_PASSWORD_LENGTH_ERROR_MSG;
   }
+  if (values.NewPassword && values.NewPassword.length < 8) {
+    errors.NewPassword = TEXT.MIN_PASSWORD_LENGTH_ERROR_MSG;
+  }
+  if (values.ConfirmPassword && values.ConfirmPassword.length < 8) {
+    errors.ConfirmPassword = TEXT.MIN_PASSWORD_LENGTH_ERROR_MSG;
+  }
+  if (values.NewPassword !== values.ConfirmPassword) {
+    errors.ConfirmPassword = TEXT.PASSWORD_DOES_NOT_MATCH_ERROR_MESSAGE;
+  }
   return errors;
 };
-class SignIn extends React.Component {
+class ChangePassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      errMsg: null
+      errMsg: null,
+      succMsg: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.loggedIn) {
-      return this.props.history.push(ROUTES.LANDING);
+    if (!this.props.loggingIn && !this.props.loggedIn) {
+      return this.props.history.push(ROUTES.SIGN_IN);
     }
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.loggedIn) {
-      nextProps.history.push(ROUTES.LANDING);
+    if (!nextProps.loggingIn && !nextProps.loggedIn) {
+      nextProps.history.push(ROUTES.SIGN_IN);
       return false;
     }
     return true;
   }
 
   handleSubmit(e) {
-    const email = e.Email;
-    const password = e.Password;
-    Meteor.loginWithPassword(email, password, err => {
+    const oldPassword = e.OldPassword;
+    const newPassword = e.NewPassword;
+    Accounts.changePassword(oldPassword, newPassword, err => {
+      this.props.reset();
       if (err) {
         this.setState({ errMsg: err.reason });
+        setTimeout(() => {
+          this.setState({ errMsg: null });
+        }, 2000);
         return console.log(err);
+      } else {
+        this.setState({ errMsg: null });
+        this.setState({ succMsg: TEXT.CHANGE_PASSWORD_SUCCESS_TEXT });
+        setTimeout(() => {
+          this.setState({ succMsg: null });
+        }, 2000);
       }
     });
   }
   render() {
-    const { handleSubmit, pristine, submitting, classes,loggingIn ,loggedIn} = this.props;
-    const { errMsg } = this.state;
+    const { handleSubmit, pristine, submitting, classes, loggingIn,loggedIn } = this.props;
+    const { errMsg, succMsg } = this.state;
     if (loggingIn) {
       return TEXT.LOADING_TEXT;
     }
-    if (loggedIn) {
+    if(!loggedIn){
       return null;
     }
     return (
@@ -104,49 +119,53 @@ class SignIn extends React.Component {
         <Container className={classes.content} component="main" maxWidth="sm">
           <CssBaseline />
           <div>
-          <Grid align="center" item xs={12}>
-
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              {TEXT.SIGN_IN_BTN}
-            </Typography>
+            <Grid align="center" item xs={12}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                {TEXT.CHANGE_PASSWORD}
+              </Typography>
             </Grid>
-
             <form
               className={classes.form}
               onSubmit={handleSubmit(this.handleSubmit)}
             >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  {errMsg && <Alert severity="error">{errMsg}</Alert>}
-                </Grid>{" "}
-                <Grid item xs={12}>
-                <Field
-                    fullWidth
-                    variant="outlined"
-                    name="Email"
-                    component={renderTextField}
-                    label={TEXT.EMAIL}
-                  />
+                  {errMsg ? <Alert severity="error">{errMsg}</Alert> : null}
+                  {succMsg ? <Alert severity="success">{succMsg}</Alert> : null}
                 </Grid>
                 <Grid item xs={12}>
-                <Field
+                  <Field
                     fullWidth
-                    name="Password"
+                    name="OldPassword"
                     type="Password"
                     variant="outlined"
                     component={renderTextField}
                     label={TEXT.PASSWORD}
                   />
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label={TEXT.REMEMBER_ME_LABEL}
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    name="NewPassword"
+                    type="Password"
+                    variant="outlined"
+                    component={renderTextField}
+                    label={TEXT.OLD_PASSWORD}
                   />
-                </Grid> */}
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    fullWidth
+                    name="ConfirmPassword"
+                    type="Password"
+                    variant="outlined"
+                    component={renderTextField}
+                    label={TEXT.CONFIRM_PASSWORD}
+                  />
+                </Grid>
               </Grid>
               <Button
                 type="submit"
@@ -156,20 +175,8 @@ class SignIn extends React.Component {
                 className={classes.button}
                 disabled={pristine || submitting}
               >
-                {TEXT.SIGN_IN_BTN}
+                {TEXT.SUBMIT}
               </Button>
-              <Grid container spacing={2}>
-                <Grid item xs>
-                  <Link to={ROUTES.FORGOT_PASSWORD} variant="body2">
-                    {TEXT.FORGOT_PASSWORD_BTN}
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link to={ROUTES.SIGN_UP} variant="body2">
-                    {TEXT.SIGN_UP_LINK}
-                  </Link>
-                </Grid>
-              </Grid>
             </form>
           </div>
         </Container>
@@ -179,8 +186,9 @@ class SignIn extends React.Component {
   }
 }
 
-SignIn.propTypes = {
+ChangePassword.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
+  loggingIn:PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
@@ -190,7 +198,7 @@ SignIn.propTypes = {
 export default compose(
   withStyles(styles),
   reduxForm({
-    form: "SignIn",
+    form: "ChangePassword",
     validate
   })
-)(SignIn);
+)(ChangePassword);

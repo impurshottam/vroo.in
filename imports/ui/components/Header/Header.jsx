@@ -39,6 +39,8 @@ class Header extends Component {
     };
   }
 
+
+
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -133,6 +135,9 @@ class Header extends Component {
       >
         <MenuItem onClick={this.handleMenuClose}>{TEXT.PROFILE}</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>{TEXT.MY_ACCOUNRT}</MenuItem>
+        <MenuItem>
+          <Link to={ROUTES.CHANGE_PASSWORD}>{TEXT.CHANGE_PASSWORD}</Link>
+        </MenuItem>
         <MenuItem
           onClick={e => {
             Meteor.logout();
@@ -158,7 +163,7 @@ class Header extends Component {
                 {mailsCount ? (
                   <IconButton
                     aria-label={`show ${notificationsCount} new mails`}
-                    color="inherit"
+className={fontColor}
                   >
                     <Badge badgeContent={mailsCount} color="secondary">
                       <MailIcon />
@@ -167,6 +172,8 @@ class Header extends Component {
                 ) : null}
                 {notificationsCount ? (
                   <IconButton
+                  className={fontColor}
+
                     aria-label={`show ${notificationsCount} new notifications`}
                     color="inherit"
                   >
@@ -176,12 +183,12 @@ class Header extends Component {
                   </IconButton>
                 ) : null}
                 <IconButton
-                  edge="end"
+className={fontColor}
+edge="end"
                   aria-label="account of current user"
                   aria-controls="primary-search-account-menu"
                   aria-haspopup="true"
                   onClick={this.handleProfileMenuOpen}
-                  color="inherit"
                 >
                   <AccountCircle />
                 </IconButton>
@@ -198,8 +205,8 @@ class Header extends Component {
                       this.handleProfileMenuOpen(e);
                     }
                   }}
-                  color="inherit"
-                >
+                  className={fontColor}
+                  >
                   <MoreIcon />
                 </IconButton>
               </div>
@@ -229,6 +236,10 @@ class Header extends Component {
 
 Header.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
+  loggingIn:PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
   classes: PropTypes.object.isRequired
 };
 

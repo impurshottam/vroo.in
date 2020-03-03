@@ -20,7 +20,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import Signup from "./pages/Signup/Signup";
 import NotFound from "./pages/NotFound/NotFound";
 import PropsRoute from "./pages/PropsRoute/PropsRoute";
-import ResetPassword from "./pages/RestPassword/ResetPassword";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import TourLandingPage from "./pages/Tour/TourLandingPage";
 import TourTemplatesLandingPage from "./pages/Tour/TourTemplatesLandingPage";
 import CreateTour from "./pages/Tour/CreateTour";
@@ -54,8 +54,8 @@ class App extends Component {
             <PropsRoute path={ROUTES.SIGN_IN} component={SignIn} {...props} />
             <PropsRoute path={ROUTES.SIGN_UP} component={Signup} {...props} />
             <PropsRoute
-              path={ROUTES.RESET_PASSWORD}
-              component={ResetPassword}
+              path={ROUTES.CHANGE_PASSWORD}
+              component={ChangePassword}
               {...props}
             />
             <PropsRoute
@@ -78,11 +78,11 @@ class App extends Component {
               component={Krpano}
               {...props}
             />
-            <PropsRoute
+            {/* <PropsRoute
               path={ROUTES.RESET_PASSWORD}
               component={ResetPassword}
               {...props}
-            />
+            /> */}
             <PropsRoute component={NotFound} {...props} />
           </Switch>
           {/* <Footer/> */}

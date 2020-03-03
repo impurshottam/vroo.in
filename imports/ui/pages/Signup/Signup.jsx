@@ -118,11 +118,14 @@ class Signup extends React.Component {
     });
   }
   render() {
-    if (this.props.loggedIn) {
+    const { errMsg } = this.state;
+    const { handleSubmit, pristine, submitting, classes,loggingIn ,loggedIn} = this.props;
+    if (loggingIn) {
+      return TEXT.LOADING_TEXT;
+    }
+    if (loggedIn) {
       return null;
     }
-    const { errMsg } = this.state;
-    const { handleSubmit, pristine, submitting, classes } = this.props;
     return (
       <div className={classes.root}>
         <Header theme={THEME.BLACK} {...this.props} />

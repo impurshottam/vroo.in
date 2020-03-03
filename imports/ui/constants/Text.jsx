@@ -4,6 +4,8 @@ export const TEXT = {
     desc: `VROO Is India's First 360 Virtual Reality Tour Online Publishing
         Platform.`
   },
+  LOADING_TEXT:'Loading...',
+  FORGOT_PASSWORD_BTN:'Forgot password?',
   GET_STARTED: "Get Started",
   SIGN_IN_BTN: "Sign In",
   SIGN_UP_BTN: "Sign Up",
@@ -24,6 +26,8 @@ export const TEXT = {
   LAST_NAME:'Last Name',
   EMAIL:'Email',
   PASSWORD:'Password',
+  OLD_PASSWORD:'Old Password',
+  CONFIRM_PASSWORD:'Confirm Password',
   REMEMBER_ME_DESC:'I want to receive inspiration, marketing promotions and updates via email.',
   NOT_FOUND : 'Opps! Page does not found.',
   ERROR_404 : '404 Error',
@@ -32,5 +36,10 @@ export const TEXT = {
   MIN_PASSWORD_LENGTH_ERROR_MSG : 'Password can not be less that 8 characters.',
   EMAIL_ERROR_MESSAGE : "Invalid email address",
   PROFILE : 'Profile',
-  MY_ACCOUNRT : 'My account'
+  MY_ACCOUNRT : 'My account',
+  RESET_PASSWORD:'Reset Password',
+  CHANGE_PASSWORD:'Change Password',
+  SUBMIT:'Submit',
+  CHANGE_PASSWORD_SUCCESS_TEXT:'Password has been successfully changed.',
+  PASSWORD_DOES_NOT_MATCH_ERROR_MESSAGE:'New passsword and confirm password and does not match.'
 };

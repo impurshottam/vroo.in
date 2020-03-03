@@ -4,7 +4,7 @@ export const ROUTES = {
     SIGN_IN:'/signin',
     SIGN_UP : "/signup",
     FORGOT_PASSWORD : '/forgot-password',
-    RESET_PASSWORD : '/reset-password',
+    CHANGE_PASSWORD : '/change-password',
     NEW_TOUR : '/tours/new',
-    TOUR_TEMPLATES :"/tours/templates"
+    TOUR_TEMPLATES :"/tours/templates",
 }
