@@ -21,10 +21,10 @@ import Signup from "./pages/Signup/Signup";
 import NotFound from "./pages/NotFound/NotFound";
 import PropsRoute from "./pages/PropsRoute/PropsRoute";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
-import TourLandingPage from "./pages/Tour/TourLandingPage";
-import TourTemplatesLandingPage from "./pages/Tour/TourTemplatesLandingPage";
-import CreateTour from "./pages/Tour/CreateTour";
-import Krpano from "./pages/Krpano/Krpano";
+import Tours from "./pages/Tours/Tours";
+// import TourTemplatesLandingPage from "./pages/Tour/TourTemplatesLandingPage";
+// import CreateTour from "./pages/Tour/CreateTour";
+// import Krpano from "./pages/Krpano/Krpano";
 
 // import constants
 import { TEXT } from "./constants/Text";
@@ -60,15 +60,15 @@ class App extends Component {
             />
             <PropsRoute
               path={ROUTES.TOURES}
-              component={TourLandingPage}
+              component={Tours}
               {...props}
             />
-            <PropsRoute
+            {/* <PropsRoute
               path={ROUTES.NEW_TOUR}
               component={CreateTour}
               {...props}
-            />
-            <PropsRoute
+            /> */}
+            {/* <PropsRoute
               path={ROUTES.TOUR_TEMPLATES}
               component={TourTemplatesLandingPage}
               {...props}
@@ -77,7 +77,7 @@ class App extends Component {
               path={`${ROUTES.TOUR_TEMPLATES}/:folder/:file`}
               component={Krpano}
               {...props}
-            />
+            /> */}
             {/* <PropsRoute
               path={ROUTES.RESET_PASSWORD}
               component={ResetPassword}

@@ -1,34 +1,37 @@
 import React, { Component, Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { compose } from "redux";
+
+import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import DeleteTour from "./DeleteTour";
-import ShareTour from "./ShareTour";
-import {
-  CardMediaSegment,
-  TourButtons,
-  ToursTitle,
-  CardTitle,
-  CardDate,
-  CardButtons,
-  CardChips
-} from "./Shared";
-import { TOURS_TEST_DATA } from "../../data/TourTestData";
-import { TOUR_STATUS } from "../../constants/TourStatus";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Chip, Button, Fab, GridList, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+
 import styles from "../../styles/styles";
+
+import { TOURS_TEST_DATA } from "../../data/TourTestData";
+
 import { TEXT } from "../../constants/Text";
 import { ROUTES } from "../../constants/Routes";
 import { IMAGES } from "../../constants/Images";
 import { THEME } from "../../constants/themes";
+import { TOUR_STATUS } from "../../constants/TourStatus";
+
+import Header from "../../components/Header/Header";
+import DeleteTour from "../../components/DeleteTour/DeleteTour";
+import ShareTour from "../../components/ShareTour/ShareTour";
+import CardMediaSegment from "../../components/CardMediaSegment/CardMediaSegment";
+import CardTitle from "../../components/CardTitle/CardTitle";
+import CardDate from "../../components/CardDate/CardDate";
+import CardButtons from "../../components/CardButtons/CardButtons";
+import CardChips from "../../components/CardChips/CardChips";
+
 // const cards = [];
 const cards = TOURS_TEST_DATA;
 function NoTours(props) {
@@ -66,13 +69,28 @@ function NoTours(props) {
   );
 }
 
-class ToursLandingPage extends Component {
+class Tours extends Component {
   state = {
     openDelete: false,
     selectedValue: null,
-    loading: true,
+    loading: false,
     openShare: false
   };
+
+  componentDidMount() {
+    if (!this.props.loggingIn && !this.props.loggedIn) {
+      return this.props.history.push(ROUTES.SIGN_IN);
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (!nextProps.loggingIn && !nextProps.loggedIn) {
+      nextProps.history.push(ROUTES.SIGN_IN);
+      return false;
+    }
+    return true;
+  }
+
   handleDeleteOpen = card => {
     this.setState({ selectedValue: card });
     this.setState({ openDelete: true });
@@ -93,8 +111,21 @@ class ToursLandingPage extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { selectedValue, loading, openShare, openDelete } = this.state;
+    const {
+      handleSubmit,
+      pristine,
+      submitting,
+      classes,
+      loggingIn,
+      loggedIn
+    } = this.props;
+    if (loggingIn) {
+      return TEXT.LOADING_TEXT;
+    }
+    if (!loggedIn) {
+      return null;
+    }
     return (
       <div className={classes.root}>
         {openShare ? (
@@ -111,6 +142,7 @@ class ToursLandingPage extends Component {
             onClose={this.handleDeleteClose}
           />
         ) : null}
+        <Header theme={THEME.BLACK} {...this.props} />
         <Container component="main" maxWidth="md">
           <CssBaseline />
           <Grid
@@ -120,7 +152,7 @@ class ToursLandingPage extends Component {
             justify="flex-start"
           >
             <Fragment>
-              <Link to={ROUTES.HOME}>
+              <Link to={ROUTES.LANDING}>
                 <Button className={classes.button}>
                   <ArrowBackIcon />
                   {TEXT.BACK}
@@ -149,7 +181,6 @@ class ToursLandingPage extends Component {
                   <Card className={classes.cardRoot}>
                     <CardMediaSegment
                       loading={loading}
-                      classes={classes}
                       onLoad={() => {
                         this.setState({ loading: false });
                       }}
@@ -172,11 +203,10 @@ class ToursLandingPage extends Component {
                           </div>
                         }
                       />
-                      <CardTitle loading={loading} classes={classes} />
+                      <CardTitle loading={loading} />
                       <CardDate loading={loading} />
                       <div className={classes.gap}></div>
                       <CardButtons
-                        classes={classes}
                         loading={loading}
                         card={card}
                         handleDeleteOpen={this.handleDeleteOpen}
@@ -196,7 +226,12 @@ class ToursLandingPage extends Component {
     );
   }
 }
-ToursLandingPage.propTypes = {
+Tours.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  loggingIn: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
   classes: PropTypes.object.isRequired
 };
-export default compose(withStyles(styles))(ToursLandingPage);
+export default compose(withStyles(styles))(Tours);

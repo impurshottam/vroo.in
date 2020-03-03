@@ -133,6 +133,7 @@ class Header extends Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
+
         <MenuItem onClick={this.handleMenuClose}>{TEXT.PROFILE}</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>{TEXT.MY_ACCOUNRT}</MenuItem>
         <MenuItem>
@@ -182,6 +183,7 @@ className={fontColor}
                     </Badge>
                   </IconButton>
                 ) : null}
+                
                 <IconButton
 className={fontColor}
 edge="end"
@@ -194,6 +196,7 @@ edge="end"
                 </IconButton>
               </div>
               <div className={classes.headerMobile}>
+
                 <IconButton
                   aria-label="show more"
                   aria-controls="primary-search-account-menu-mobile"
