@@ -7,11 +7,9 @@ import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Chip, Button, Fab, GridList, Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 import styles from "../../styles/styles";
 
@@ -26,11 +24,7 @@ import { TOUR_STATUS } from "../../constants/TourStatus";
 import Header from "../../components/Header/Header";
 import DeleteTour from "../../components/DeleteTour/DeleteTour";
 import ShareTour from "../../components/ShareTour/ShareTour";
-import CardMediaSegment from "../../components/CardMediaSegment/CardMediaSegment";
-import CardTitle from "../../components/CardTitle/CardTitle";
-import CardDate from "../../components/CardDate/CardDate";
-import CardButtons from "../../components/CardButtons/CardButtons";
-import CardChips from "../../components/CardChips/CardChips";
+import TourCard from "../../components/TourCard/TourCard";
 
 // const cards = [];
 const cards = TOURS_TEST_DATA;
@@ -113,9 +107,6 @@ class Tours extends Component {
   render() {
     const { selectedValue, loading, openShare, openDelete } = this.state;
     const {
-      handleSubmit,
-      pristine,
-      submitting,
       classes,
       loggingIn,
       loggedIn
@@ -178,43 +169,15 @@ class Tours extends Component {
             {cards.length ? (
               cards.map((card, index) => (
                 <Grid xs={12} sm={12} md={6} item key={index}>
-                  <Card className={classes.cardRoot}>
-                    <CardMediaSegment
-                      loading={loading}
-                      onLoad={() => {
-                        this.setState({ loading: false });
-                      }}
-                    />
-                    <CardActions disableSpacing className={classes.cardActions}>
-                      <CardChips
-                        loading={loading}
-                        content={
-                          <div className={classes.chipsWrapper}>
-                            <Chip
-                              className={classes.cardChip}
-                              color="default"
-                              label={card.type}
-                            />
-                            <Chip
-                              className={classes.cardChip}
-                              color="primary"
-                              label={card.status}
-                            />
-                          </div>
-                        }
-                      />
-                      <CardTitle loading={loading} />
-                      <CardDate loading={loading} />
-                      <div className={classes.gap}></div>
-                      <CardButtons
-                        loading={loading}
-                        card={card}
-                        handleDeleteOpen={this.handleDeleteOpen}
-                        handleShareOpen={this.handleShareOpen}
-                      />
-                    </CardActions>
-                    {loading ? null : <div className={classes.cardOverlay} />}
-                  </Card>
+                  <TourCard
+                    {...this.props}
+                    handleShareOpen={this.handleShareOpen}
+                    handleDeleteOpen={this.handleDeleteOpen}
+                    card={card}
+                    onLoad={() => {
+                      this.setState({ loading: false });
+                    }}
+                  ></TourCard>
                 </Grid>
               ))
             ) : (
