@@ -27,7 +27,11 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import NavigationIcon from "@material-ui/icons/Navigation";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -38,8 +42,6 @@ class Header extends Component {
       mails: 1
     };
   }
-
-
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -60,7 +62,13 @@ class Header extends Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl, notifications, mails } = this.state;
-    const { classes, loggedIn, theme } = this.props;
+    const { classes, loggedIn, theme,loggingIn } = this.props;
+    if (loggingIn) {
+      return null;
+    }
+    if(!loggedIn){
+      return null;
+    }
     let logo = IMAGES.WHITE_LARGE_LOGO;
     let fontColor = classes.fontWhite;
     if (THEME.BLACK === theme) {
@@ -133,7 +141,6 @@ class Header extends Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-
         <MenuItem onClick={this.handleMenuClose}>{TEXT.PROFILE}</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>{TEXT.MY_ACCOUNRT}</MenuItem>
         <MenuItem>
@@ -149,7 +156,91 @@ class Header extends Component {
         </MenuItem>
       </Menu>
     );
+    const newTourButton = (
+      <Link to={ROUTES.CREATE_TOUR}>
 
+      <Fab
+        style={{ alignSelf: "center" }}
+        size="small"
+        color="secondary"
+        variant="extended"
+      >
+        <AddIcon />
+        New Tour
+      </Fab>
+      </Link>
+    );
+    const mailsSegment = (
+      <IconButton
+        aria-label={`show ${notificationsCount} new mails`}
+        className={fontColor}
+      >
+        <Badge badgeContent={mailsCount} color="secondary">
+          <MailIcon />
+        </Badge>
+      </IconButton>
+    );
+    const notificationsSegment = (
+      <IconButton
+        className={fontColor}
+        aria-label={`show ${notificationsCount} new notifications`}
+        color="inherit"
+      >
+        <Badge badgeContent={notificationsCount} color="secondary">
+          <NotificationsIcon />
+        </Badge>
+      </IconButton>
+    );
+    const afterLoginButtons = (
+      <Fragment>
+        <div className={classes.headerDesktop}>
+          <IconButton
+            className={fontColor}
+            edge="end"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            onClick={this.handleProfileMenuOpen}
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+        {/* <div className={classes.headerMobile}>
+      <IconButton
+        aria-label="show more"
+        aria-controls="primary-search-account-menu-mobile"
+        aria-haspopup="true"
+        onClick={e => {
+          if (mailsCount || notificationsCount) {
+            this.handleMobileMenuOpen(e);
+          } else {
+            this.handleProfileMenuOpen(e);
+          }
+        }}
+        className={fontColor}
+      >
+        <MoreIcon />
+      </IconButton>
+    </div> */}
+        {desktop}
+        {mobile}
+      </Fragment>
+    );
+
+    const beforeLoginButtons = (
+      <Fragment>
+        {!href.includes(ROUTES.SIGN_UP) ? (
+          <Link to={ROUTES.SIGN_UP}>
+            <Button className={fontColor}>{TEXT.SIGN_UP_BTN}</Button>
+          </Link>
+        ) : null}
+        {!href.includes(ROUTES.SIGN_IN) ? (
+          <Link to={ROUTES.SIGN_IN}>
+            <Button className={fontColor}>{TEXT.SIGN_IN_BTN}</Button>
+          </Link>
+        ) : null}
+      </Fragment>
+    );
     return (
       <div className={classes.grow}>
         {/* <AppBar position="static"> */}
@@ -158,78 +249,10 @@ class Header extends Component {
             <img src={logo} width="80px" />
           </Link>
           <div className={classes.gap} />
-          {loggedIn ? (
-            <Fragment>
-              <div className={classes.headerDesktop}>
-                {mailsCount ? (
-                  <IconButton
-                    aria-label={`show ${notificationsCount} new mails`}
-className={fontColor}
-                  >
-                    <Badge badgeContent={mailsCount} color="secondary">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-                ) : null}
-                {notificationsCount ? (
-                  <IconButton
-                  className={fontColor}
-
-                    aria-label={`show ${notificationsCount} new notifications`}
-                    color="inherit"
-                  >
-                    <Badge badgeContent={notificationsCount} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
-                ) : null}
-                
-                <IconButton
-className={fontColor}
-edge="end"
-                  aria-label="account of current user"
-                  aria-controls="primary-search-account-menu"
-                  aria-haspopup="true"
-                  onClick={this.handleProfileMenuOpen}
-                >
-                  <AccountCircle />
-                </IconButton>
-              </div>
-              <div className={classes.headerMobile}>
-
-                <IconButton
-                  aria-label="show more"
-                  aria-controls="primary-search-account-menu-mobile"
-                  aria-haspopup="true"
-                  onClick={e => {
-                    if (mailsCount || notificationsCount) {
-                      this.handleMobileMenuOpen(e);
-                    } else {
-                      this.handleProfileMenuOpen(e);
-                    }
-                  }}
-                  className={fontColor}
-                  >
-                  <MoreIcon />
-                </IconButton>
-              </div>
-              {desktop}
-              {mobile}
-            </Fragment>
-          ) : (
-            <Fragment>
-              {!href.includes(ROUTES.SIGN_UP) ? (
-                <Link to={ROUTES.SIGN_UP}>
-                  <Button className={fontColor}>{TEXT.SIGN_UP_BTN}</Button>
-                </Link>
-              ) : null}
-              {!href.includes(ROUTES.SIGN_IN) ? (
-                <Link to={ROUTES.SIGN_IN}>
-                  <Button className={fontColor}>{TEXT.SIGN_IN_BTN}</Button>
-                </Link>
-              ) : null}
-            </Fragment>
-          )}
+          {newTourButton}
+          {mailsCount ? mailsSegment : null}
+          {notificationsCount ? notificationsSegment : null}
+          {loggedIn ? afterLoginButtons : beforeLoginButtons}
         </Toolbar>
         {/* </AppBar> */}
       </div>
@@ -239,7 +262,7 @@ edge="end"
 
 Header.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  loggingIn:PropTypes.bool.isRequired,
+  loggingIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,

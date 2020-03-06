@@ -5,6 +5,6 @@ export const ROUTES = {
     SIGN_UP : "/signup",
     FORGOT_PASSWORD : '/forgot-password',
     CHANGE_PASSWORD : '/change-password',
-    NEW_TOUR : '/tours/new',
+    CREATE_TOUR : '/tours/create',
     TOUR_TEMPLATES :"/tours/templates",
 }

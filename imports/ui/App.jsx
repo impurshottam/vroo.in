@@ -8,7 +8,10 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { compose } from "redux";
 import { withStyles } from "@material-ui/core/styles";
+import { Provider } from "react-redux";
 import styles from "./styles/styles";
+
+import Store from "./Store";
 
 // import components
 import Header from "./components/Header/Header";
@@ -31,8 +34,7 @@ import { TEXT } from "./constants/Text";
 import { ROUTES } from "./constants/Routes";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
-import Store from "./Store";
-import { Provider } from "react-redux";
+import CreateTour from "./pages/CreateTour/CreateTour";
 
 class App extends Component {
   render() {
@@ -59,15 +61,17 @@ class App extends Component {
               {...props}
             />
             <PropsRoute
+              exact
               path={ROUTES.TOURES}
               component={Tours}
               {...props}
             />
-            {/* <PropsRoute
-              path={ROUTES.NEW_TOUR}
+            <PropsRoute
+              exact
+              path={ROUTES.CREATE_TOUR}
               component={CreateTour}
               {...props}
-            /> */}
+            />
             {/* <PropsRoute
               path={ROUTES.TOUR_TEMPLATES}
               component={TourTemplatesLandingPage}

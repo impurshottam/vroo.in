@@ -40,6 +40,9 @@ export const TEXT = {
   RESET_PASSWORD:'Reset Password',
   CHANGE_PASSWORD:'Change Password',
   SUBMIT:'Submit',
+  CREATE_TOUR:'Create Tour',
+  TITLE : 'Title',
+  DESC : 'Description',
   CHANGE_PASSWORD_SUCCESS_TEXT:'Password has been successfully changed.',
   PASSWORD_DOES_NOT_MATCH_ERROR_MESSAGE:'New passsword and confirm password and does not match.'
 };
