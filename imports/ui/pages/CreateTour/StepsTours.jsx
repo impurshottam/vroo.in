@@ -20,6 +20,10 @@ import { Field, reduxForm } from "redux-form";
 import { renderTextField } from "../../components/Forms/Forms";
 import StepContent from "@material-ui/core/StepContent";
 
+const customStyle = theme => ({
+  ...styles(theme)
+});
+
 const validate = values => {
   const errors = {};
   const requiredFields = ["Title"];
@@ -36,9 +40,55 @@ class HorizontalLinearStepper extends React.Component {
     this.state = {
       errMsg: null,
       succMsg: null,
-      activeStep: 0
+      activeStep: 0,
+      tourId : null
     };
   }
+  componentDidMount() {
+    if (!this.props.loggingIn && !this.props.loggedIn) {
+      return this.props.history.push(ROUTES.SIGN_IN);
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (!nextProps.loggingIn && !nextProps.loggedIn) {
+      nextProps.history.push(ROUTES.SIGN_IN);
+      return false;
+    }
+    return true;
+  }
+
+  stepOneSubmit(e) {
+    this.incrementStep();
+    return;
+  }
+
+  handleNext = e => {
+    const { activeStep } = this.state;
+    switch (activeStep) {
+      case 0:
+        this.stepOneSubmit(e);
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      default:
+        debugger;
+    }
+  };
+
+   incrementStep = () => {
+    this.setState({ activeStep: ++this.state.activeStep });
+  };
+   decrementStep = () => {
+    this.setState({ activeStep: --this.state.activeStep });
+  };
+
+   handleBack = () => {
+    this.decrementStep();
+  };
+
   render() {
     const {
       handleSubmit,
@@ -46,7 +96,9 @@ class HorizontalLinearStepper extends React.Component {
       submitting,
       classes,
       loggingIn,
-      loggedIn
+      loggedIn,
+      handleBack,
+      handleNext
     } = this.props;
     const { errMsg, succMsg, activeStep } = this.state;
     if (loggingIn) {
@@ -56,13 +108,7 @@ class HorizontalLinearStepper extends React.Component {
       return null;
     }
 
-    const handleNext = () => {
-      this.setState({ activeStep: ++this.state.activeStep });
-    };
 
-    const handleBack = () => {
-      this.setState({ activeStep: --this.state.activeStep });
-    };
 
     const stepsCompleted = (
       <div>
@@ -163,7 +209,12 @@ class HorizontalLinearStepper extends React.Component {
       </Grid>
     );
 
-    const steps = [stepOne, stepTwo, stepThree];
+    const steps = [
+      { title: "Tour Title", content: stepOne },
+      { title: "Tour Images", content: stepTwo },
+      { title: "Tour Cover", content: stepThree }
+    ];
+
     const stepButtons = (
       <div>
         <Button
@@ -176,7 +227,8 @@ class HorizontalLinearStepper extends React.Component {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleNext}
+          type="submit"
+          disabled={pristine || submitting}
           className={classes.button}
         >
           {activeStep === steps.length - 1 ? "Finish" : "Next"}
@@ -189,27 +241,27 @@ class HorizontalLinearStepper extends React.Component {
         <Container className={classes.content} component="main" maxWidth="sm">
           <CssBaseline />
           <div>
-            <Stepper style={{background:'transparent'}} activeStep={activeStep} orientation="vertical">
-              {steps.map((step, index) => (
-                <Step key={index}>
-                  <StepLabel>Step One</StepLabel>
-                  <StepContent>
-                    {step}
-                    {stepButtons}
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-            {activeStep === steps.length && (
-              <Paper square elevation={0} className={classes.resetContainer}>
-                <Typography>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} className={classes.button}>
-                  Reset
-                </Button>
-              </Paper>
-            )}
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit(this.handleNext)}
+            >
+              <Stepper
+                style={{ background: "transparent" }}
+                activeStep={activeStep}
+                orientation="vertical"
+              >
+                {steps.map((step, index) => (
+                  <Step key={index}>
+                    <StepLabel>{step.title}</StepLabel>
+                    <StepContent>
+                      {step.content}
+                      {stepButtons}
+                    </StepContent>
+                  </Step>
+                ))}
+              </Stepper>
+              {activeStep === steps.length && stepsCompleted}
+            </form>
           </div>
         </Container>
       </div>
@@ -227,7 +279,7 @@ HorizontalLinearStepper.propTypes = {
 };
 
 export default compose(
-  withStyles(styles),
+  withStyles(customStyle),
   reduxForm({
     form: "HorizontalLinearStepper",
     validate

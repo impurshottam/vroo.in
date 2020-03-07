@@ -43,7 +43,7 @@ export default theme => ({
     alignItems: "center"
   },
   button: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   fontWhite: {
     color: "white"
