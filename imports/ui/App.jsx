@@ -35,6 +35,7 @@ import { ROUTES } from "./constants/Routes";
 import Footer from "./components/Footer/Footer";
 import Profile from "./pages/Profile/Profile";
 import CreateTour from "./pages/CreateTour/CreateTour";
+import HorizontalLinearStepper from "./pages/CreateTour/StepsTours";
 
 class App extends Component {
   render() {
@@ -69,7 +70,7 @@ class App extends Component {
             <PropsRoute
               exact
               path={ROUTES.CREATE_TOUR}
-              component={CreateTour}
+              component={HorizontalLinearStepper}
               {...props}
             />
             {/* <PropsRoute
