@@ -19,6 +19,8 @@ import Grid from "@material-ui/core/Grid";
 import { Field, reduxForm } from "redux-form";
 import { renderTextField } from "../../components/Forms/Forms";
 import StepContent from "@material-ui/core/StepContent";
+import { ROUTES } from "../../constants/Routes";
+import { Tours } from "../../../api/tours/tours";
 
 const customStyle = theme => ({
   ...styles(theme)
@@ -58,8 +60,31 @@ class HorizontalLinearStepper extends React.Component {
     return true;
   }
 
-  stepOneSubmit(e) {
-    this.incrementStep();
+  handleInsertTour=(userId)=>{
+    return new Promise((resolve,reject)=>{
+        Tours.insert({
+            userId,
+            title,
+            description,
+            createDate: new Date()
+        }, (error, _id) => {
+            if(error){
+                return reject(error)
+            }else{
+                return resolve(_id)
+            }
+        })
+    })
+}
+
+  stepOneSubmit = async(e) =>{
+      const user = this.props.user;
+      if(!user){
+        return this.props.history.push(ROUTES.SIGN_IN);
+      }
+      const tourId = await this.handleInsertTour(user._id)
+      debugger
+      this.incrementStep();
     return;
   }
 

@@ -114,6 +114,7 @@ export default compose(
     const loggingIn = Meteor.loggingIn();
     const loggedIn = !loggingIn && userReady;
     return {
+      user,
       loggingIn,
       userReady,
       loggedIn
