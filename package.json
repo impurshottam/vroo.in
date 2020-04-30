@@ -15,7 +15,7 @@
     "aframe": "^1.0.4",
     "aws-sdk": "^2.634.0",
     "bcrypt": "^3.0.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "meteor-node-stubs": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
